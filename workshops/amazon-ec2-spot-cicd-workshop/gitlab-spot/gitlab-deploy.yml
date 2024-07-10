@@ -284,8 +284,10 @@ Resources:
             gitlab-ctl reconfigure
             gitlab-rails runner "ApplicationSetting.last.update_attribute(:signup_enabled, false)"
             wget https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz
-            python3 /usr/lib/python3/dist-packages/easy_install.py --script-dir /opt/aws/bin aws-cfn-bootstrap-py3-latest.tar.gz
-            /opt/aws/bin/cfn-signal \
+            tar -xvf aws-cfn-bootstrap-py3-latest.tar.gz
+            cd aws-cfn-bootstrap-2.0
+            python3 setup.py install
+            /usr/local/bin/cfn-signal \
               -e $? \
               --stack ${AWS::StackName} \
               --resource GitLabAutoScalingGroup \
